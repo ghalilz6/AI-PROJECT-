@@ -9,7 +9,7 @@ import lejos.hardware.motor.EV3MediumRegulatedMotor;
 import lejos.hardware.port.MotorPort;
 
 
-
+// la Classe Moteur
 public class Moteur {
 	
 	private static final double DIAMETRE = 5.6;
@@ -18,11 +18,14 @@ public class Moteur {
 	private RegulatedMotor pinces = new EV3MediumRegulatedMotor(MotorPort.D);
     private boolean pincesOuvertes = true; 
 	
-	//public void setPincesOuvertes(boolean pincesOuvertes) { 
+	public void setPincesOuvertes(boolean pincesOuvertes) { 
 
-		//this.pincesOuvertes = pincesOuvertes;
-	//}
+		this.pincesOuvertes = pincesOuvertes;
+	}
 
+
+
+	// C'est un constructeur. 
 	public Moteur () {
     	
     	Wheel roue1 = WheeledChassis.modelWheel((RegulatedMotor)Motor.B,DIAMETRE).offset(-6.2);
@@ -32,12 +35,13 @@ public class Moteur {
     	
     }
 
+	//Renvoie l'objet MovePilot
 	 public MovePilot getpilot() {
     	
     		return pilot;
     }
 	
-	
+	//Avance de la distance en parametres
 	public void avancer(double distance) { 
 		
 
