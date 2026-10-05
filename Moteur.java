@@ -22,7 +22,15 @@ public class Moteur {
 
 		//this.pincesOuvertes = pincesOuvertes;
 	//}
-	
+
+	public Moteur () {
+    	
+    	Wheel roue1 = WheeledChassis.modelWheel((RegulatedMotor)Motor.B,DIAMETRE).offset(-6.2);
+    	Wheel roue2 = WheeledChassis.modelWheel((RegulatedMotor)Motor.A,DIAMETRE).offset(6.2);
+    	Chassis chassis = new WheeledChassis(new Wheel[] {roue1, roue2}, WheeledChassis.TYPE_DIFFERENTIAL);
+    	pilot = new MovePilot(chassis);
+    	
+    }
 	
 	
 	public void avancer(double distance) { 
