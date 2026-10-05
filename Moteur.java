@@ -31,6 +31,11 @@ public class Moteur {
     	pilot = new MovePilot(chassis);
     	
     }
+
+	 public MovePilot getpilot() {
+    	
+    		return pilot;
+    }
 	
 	
 	public void avancer(double distance) { 
