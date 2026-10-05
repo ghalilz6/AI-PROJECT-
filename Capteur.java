@@ -21,3 +21,7 @@ public Capteurs (){
 		touche = new EV3TouchSensor(SensorPort.S3);
 		couleur = new EV3ColorSensor(SensorPort.S2);	
 	}
+// renvoie la touche
+public EV3TouchSensor getTouche() {
+		return touche;
+	}
