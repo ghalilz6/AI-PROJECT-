@@ -15,3 +15,9 @@ public class Capteur {
 	private EV3ColorSensor couleur;
 	
 }
+// Constructeur 
+public Capteurs (){
+		ultrason = new EV3UltrasonicSensor(SensorPort.S4);
+		touche = new EV3TouchSensor(SensorPort.S3);
+		couleur = new EV3ColorSensor(SensorPort.S2);	
+	}
