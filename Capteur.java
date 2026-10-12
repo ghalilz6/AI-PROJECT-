@@ -5,9 +5,9 @@ import lejos.hardware.sensor.EV3UltrasonicSensor;
 import lejos.robotics.SampleProvider;
 
 
-/**
-* La classe Capteur
-*/ 
+
+// La classe Capteur
+
 public class Capteur {
 	
 	private EV3UltrasonicSensor ultrason;
