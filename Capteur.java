@@ -43,3 +43,15 @@ public EV3TouchSensor getTouche() {
 	public EV3ColorSensor getCouleur() {
 		return couleur;
 	}
+/** 
+	 *
+	 * mesure la distance entre le capteur et le prochain obstacle
+	 *
+	 * @return float
+	 */
+	public float echantillon() {
+		 SampleProvider sp = ultrason.getDistanceMode();
+		float[] sample = new float[sp.sampleSize()];
+		sp.fetchSample(sample, 0);
+		return sample[0];
+	}	
