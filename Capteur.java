@@ -25,12 +25,7 @@ public Capteurs (){
 public EV3TouchSensor getTouche() {
 		return touche;
 	}
-/** 
-	 *
-	 * Renvoie le capteur ultrason
-	 *
-	 * @return le capteur ultrason
-	 */
+// renvoir le capteur ultrason 
 	public EV3UltrasonicSensor getUltrason() {
 		return ultrason;
 	}
