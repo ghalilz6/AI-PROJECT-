@@ -29,12 +29,7 @@ public EV3TouchSensor getTouche() {
 	public EV3UltrasonicSensor getUltrason() {
 		return ultrason;
 	}
-/** 
-	 *
-	 * Renvoie le capteur de couleur
-	 *
-	 * @return le capteur de couleur
-	 */
+// renvoir le capteur de couleur
 	public EV3ColorSensor getCouleur() {
 		return couleur;
 	}
