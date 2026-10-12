@@ -18,12 +18,6 @@ public class Moteur {
 	private RegulatedMotor pinces = new EV3MediumRegulatedMotor(MotorPort.D);
     private boolean pincesOuvertes = true; 
 	
-	public void setPincesOuvertes(boolean pincesOuvertes) { 
-
-		this.pincesOuvertes = pincesOuvertes;
-	}
-
-
 
 	// C'est un constructeur. 
 	public Moteur () {
@@ -50,7 +44,7 @@ public class Moteur {
 		direction= direction%360;
 	}
 
-
+	//Vérifie si les pinces sont ouvertes au sinon il les ouvrent
     public void setPincesOuvertes(boolean ouvertes) {
         if (ouvertes && !pincesOuvertes) {
             pinces.rotate(300);    // ouvrir
