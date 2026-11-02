@@ -65,5 +65,5 @@ public class Fonctionnalite {
 				indice = j;
 			}
 		}
-		return j;
+		return indice;
 }
