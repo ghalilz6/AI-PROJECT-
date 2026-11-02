@@ -4,7 +4,7 @@ import lejos.utility.Delay;
 
 
 
-public class TestET {
+public class ET{
 
 	public static void main(String[] args) {
 		Moteur moteur = new Moteur();
