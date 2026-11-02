@@ -58,4 +58,12 @@ public class Fonctionnalite {
 	private static int indiceDistanceMinimale(List<Float> distances, double min, double max){
 		double meilleure = max;
 		int indice = -1;
+		for (int j = 0; j < distance.size(); j++){
+			float valeur = distances.get(j);
+			if (valeur < meilleure && valeur >= min){
+				meilleure = valeur;
+				indice = j;
+			}
+		}
+		return j;
 }
