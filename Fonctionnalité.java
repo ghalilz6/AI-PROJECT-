@@ -53,7 +53,8 @@ public class Fonctionnalite {
 		}
 		return distances;
 	}
-
+// cherche l'indice de la plus petite distance comprise dans l'intervalle min,max
+// retroune l'indice trouvé, si aucune distance est trouvée : retourne -1
 	private static int indiceDistanceMinimale(List<Float> distances, double min, double max){
 		double meilleure = max;
 		int indice = -1;
