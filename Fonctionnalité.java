@@ -30,3 +30,8 @@ public class Fonctionnalite {
 		}
 	}
 }
+// lit une mesure du capteur ultrason et la convertit en cm.
+private static float lireDistanceCm( SampleProvider source, float[] echantillon){
+	source.fetchSample(echantillon,0);
+	return echantillon[0]*100;
+}
