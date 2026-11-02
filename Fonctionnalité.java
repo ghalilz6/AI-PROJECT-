@@ -30,15 +30,14 @@ public class Fonctionnalite {
 		}
 	}
 	
-// lit une mesure du capteur ultrason et la convertit en cm.
-private static float lireDistanceCm( SampleProvider source, float[] echantillon){
-	source.fetchSample(echantillon,0);
-	return echantillon[0]*100;
-}
-/**
-	 * Tourne de {@code angle} degrés en mesurant la distance en continu.
-	 * @return la liste des distances (cm) relevées pendant la rotation
-	 */
+// lit une mesure du capteur ultrason et la convertit en cm
+	private static float lireDistanceCm( SampleProvider source, float[] echantillon){
+		source.fetchSample(echantillon,0);
+		return echantillon[0]*100;
+	}
+	
+// Tourne de (valeur angle) degrés en mesurant la distance en continu
+// renvoie la liste des distances (cm) relevées pendant la rotation	 
 	private List<Float> balayerDistances(int angle, boolean afficher) {
 		SampleProvider ultrason = capteur.getUltrason().getDistanceMode();
 		float[] echantillon = new float[ultrason.sampleSize()];
