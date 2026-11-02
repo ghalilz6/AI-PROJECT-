@@ -6,6 +6,7 @@ import lejos.utility.Delay;
 
 public class ET{
 
+	// test l'ouverture des pinces
 	public static void main(String[] args) {
 		Moteur moteur = new Moteur();
         moteur.setPincesOuvertes(false); //false ferme les pinces
