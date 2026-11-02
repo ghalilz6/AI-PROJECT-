@@ -54,4 +54,7 @@ public class Fonctionnalite {
 		return distances;
 	}
 
+	private static int indiceDistanceMinimale(List<Float> distances, double min, double max){
+		double meilleure = max;
+		int indice = -1;
 }
