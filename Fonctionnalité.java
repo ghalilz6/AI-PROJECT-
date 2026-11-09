@@ -199,4 +199,15 @@ public class Fonctionnalite {
 			nbPalets++;
 		}
 	}
+	
+	//Ramasse les 3 palets de la ligne centrale.
+	public void marquerPaletsLigneCentrale() {
+		while (nbPalets < 6) {
+			rejoindreLigneNoire();
+			moteur.avancer(45);
+			viserEtAttraperPalet();
+			reprendreCapInitial();
+			deposerPaletSurLigneBut();
+		}
+	}
 }
