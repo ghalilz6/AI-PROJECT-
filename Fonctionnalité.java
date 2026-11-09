@@ -91,6 +91,20 @@ public class Fonctionnalite {
 			}
 		}
 	}
-	
+	// avance jusqu'à détécter la couleur donnée( ou jusqu'à appui sur ENTER)
+	public void allerVersCouleur(int couleur){
+		if(!capteur.getCouleur().isFloodlightOn()){
+			capteur.getCouleur().setFloodlight(true);
+		}
+		moteur.changerVitlin(30);
+		moteur.avancerSync(300);
+		int couleurDetectee = -1;
+		while (couleurDetectee != couleur && ! Button.ENTER.isDown()) {
+			System.out.print(couleurDetectee);
+			couleurDetectee = capteur.getCouleur().getColorID();
+			attendre(100);
+		}
+		moteur.stop();
+		}
 		
 }
