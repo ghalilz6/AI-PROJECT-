@@ -78,6 +78,19 @@ public class Fonctionnalite {
 		moteur.avancer(-10);
 		moteur.fermerPinces(OUVERTURE_PINCE_PALET);
 	}
+	// avance de la distance donnée en évitant les obstacles à moins de 15cm
+	public void avancerAvecEvitement(double distanceCm){
+		while(moteur.isMoving()){
+			ultrason.fetchSample(echantillon,0);
+			if (echantillon[0]<SEUIL_OBSTACLE_CM){
+				moteur.tourner(45);
+				moteur.avancer(30);
+				moteur.tourner(-moteur.getDirection());
+				moteur.stop();
+				moteur.avancerSync(distanceCm);
+			}
+		}
+	}
 	
 		
 }
