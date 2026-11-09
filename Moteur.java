@@ -54,7 +54,9 @@ public class Moteur {
         this.pincesOuvertes = ouvertes;
     }
     
-    
+    public void fermer() {
+        pinces.close();
+    }
     
     
 }
