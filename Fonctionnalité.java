@@ -185,4 +185,18 @@ public class Fonctionnalite {
 		deposerPaletSurLigneBut();
 		nbPalets++;
 	}
+
+	
+	// Marque les 3 premiers palets.
+	public void marquerTroisPremiersPalets() {
+		marquerPremierPalet();
+		while (nbPalets < 3) {
+			rejoindreLigneNoire();
+			moteur.avancer(-10);
+			viserEtAttraperPalet();
+			reprendreCapInitial();
+			deposerPaletSurLigneBut();
+			nbPalets++;
+		}
+	}
 }
