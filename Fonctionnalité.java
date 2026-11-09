@@ -149,4 +149,25 @@ public class Fonctionnalite {
 		moteur.avancer(distanceMurDroit - DISTANCE_MUR_CM);
 		moteur.tourner(90);
 	}
+	//se place face au palet le plus proche avance vers lui et l'attrape
+	public void viserEtAttraperPalet() {
+		moteur.tourner(-55);
+		moteur.changerVitRot(36);
+
+		List<Float> distances = balayerDistances(110, true);
+
+		int indice = indiceDistanceMinimale(distances, PORTEE_MIN_PALET_CM, PORTEE_MAX_PALET_CM);
+		double distancePalet = PORTEE_MAX_PALET_CM;
+		if (indice < 0) {
+			indice = distances.size();
+		} else {
+			distancePalet = distances.get(indice);
+		}
+
+		moteur.changerVitRot(90);
+		moteur.tourner(-110 + indice * 110.000 / distances.size() + 10);
+		moteur.ouvrirPinces(OUVERTURE_PINCES_PALET);
+		moteur.avancer(distancePalet + 25);
+		moteur.fermerPinces(OUVERTURE_PINCES_PALET);
+	}
 }
