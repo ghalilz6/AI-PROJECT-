@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import lejos.hardware.BrickFinder;
 import lejos.hardware.lcd.GraphicsLCD;
 import lejos.utility.Delay;
