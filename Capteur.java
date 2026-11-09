@@ -17,8 +17,8 @@ public class Capteur {
 // Constructeur 
 public Capteur (){
 		ultrason = new EV3UltrasonicSensor(SensorPort.S4);
-		touche = new EV3TouchSensor(SensorPort.S3);
-		couleur = new EV3ColorSensor(SensorPort.S2);	
+		touche = new EV3TouchSensor(SensorPort.S2);
+		couleur = new EV3ColorSensor(SensorPort.S3);	
 	}
 // renvoie la touche
 public EV3TouchSensor getTouche() {
