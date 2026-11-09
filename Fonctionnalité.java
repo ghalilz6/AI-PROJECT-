@@ -67,4 +67,17 @@ public class Fonctionnalite {
 		}
 		return indice;
 	}
+	// remet le robot dans sa direction de départ
+	private void reprendreCapInitial(){
+		moteur.tourner(-moteur.getDirections);
+	}
+	// va jusqu'a la ligne de but, lache le palet et recule en refermant les pinces
+	private void deposerPaletSurLigneBut(){
+		allerVersCouleur(COULEUR_LIGNE_BUT);
+		moteur.ouvrirPinces(OUVERTURE_PINCES_PALET);
+		moteur.avancer(-10);
+		moteur.fermerPinces(OUVERTURE_PINCE_PALET);
+	}
+	
+		
 }
