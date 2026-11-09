@@ -171,5 +171,18 @@ public class Fonctionnalite {
 		moteur.fermerPinces(OUVERTURE_PINCES_PALET);
 	}
 	
+	//gère le premier palet
+	public void marquerPremierPalet() {
+		moteur.avancerSync(60);
+		moteur.ouvrirPinces(OUVERTURE_PINCES_PALET);
+		moteur.stop();
+		moteur.fermerPinces(OUVERTURE_PINCES_PALET);
 
+		moteur.tourner(100);
+		moteur.avancer(20);
+		moteur.tourner(-100);
+
+		deposerPaletSurLigneBut();
+		nbPalets++;
+	}
 }
