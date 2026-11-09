@@ -14,7 +14,6 @@ public class Capteur {
 	private EV3TouchSensor touche;
 	private EV3ColorSensor couleur;
 	
-}
 // Constructeur 
 public Capteur (){
 		ultrason = new EV3UltrasonicSensor(SensorPort.S4);
@@ -41,3 +40,4 @@ public EV3TouchSensor getTouche() {
 		sp.fetchSample(sample, 0);
 		return sample[0];
 	}	
+}
