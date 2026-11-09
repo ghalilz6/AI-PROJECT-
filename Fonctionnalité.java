@@ -106,5 +106,47 @@ public class Fonctionnalite {
 		}
 		moteur.stop();
 		}
-		
+	// avance pinces ouvertes et les referme lorsque le capteur touché est appuyé
+	public void saisirPalet(){
+		SampleProvider toucher = capteur.getTouche().getTouchMode();
+		float[] echantillon = new float[toucher.sampleSize()];
+
+		moteur.ouvrirPinces(OUVERTURE_PINCES_SAISIE);
+		moteur.changerVitLin(100);
+		moteur.avancer(60);
+
+		while (!Button.ENTER.isDown()) {
+			toucher.fetchSample(echantillon, 0);
+			if (echantillon[0] == 1.00) {
+				moteur.fermerPinces(OUVERTURE_PINCES_SAISIE);
+				break;
+			}
+			attendre(1000);
+		}
+}
+	//apres un but, se place perpendiculairement au mur adverse puis rejoint la ligne noir du milieu et se tourne vers les palets
+	public void rejoindreLigneNoire() {
+		reprendreCapInitial();
+		moteur.changerVitRot(36);
+		moteur.tourner(-20);
+
+		List<Float> distancesMur = balayerDistances(40, false);
+		int indice = indiceDistanceMinimale(distancesMur, Double.NEGATIVE_INFINITY, PORTEE_MAX_MUR_CM);
+		if (indice < 0) {
+			indice = 0;
+		}
+		moteur.tourner(-40 + indice * 40.000 / distancesMur.size() + 5);
+
+		moteur.changerVitRot(72);
+		moteur.tourner(90);
+		moteur.changerVitRot(36);
+		Delay.msDelay(500);
+
+		SampleProvider ultrason = capteur.getUltrason().getDistanceMode();
+		float[] echantillon = new float[ultrason.sampleSize()];
+		float distanceMurDroit = lireDistanceCm(ultrason, echantillon);
+
+		moteur.avancer(distanceMurDroit - DISTANCE_MUR_CM);
+		moteur.tourner(90);
+	}
 }
