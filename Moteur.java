@@ -1,0 +1,48 @@
+import lejos.hardware.motor.Motor;
+import lejos.robotics.RegulatedMotor;
+import lejos.robotics.chassis.Chassis;
+import lejos.robotics.chassis.Wheel;
+import lejos.robotics.chassis.WheeledChassis;
+import lejos.robotics.navigation.MovePilot;
+
+public class Moteur {
+
+	private static final double DIAMETRE_ROUE_CM = 5.6;
+	private static final double DEMI_ECARTEMENT_CM = 6.2; 
+	private static final int VITESSE_PINCES = 1000;      
+	private static final int OUVERTURE_PINCES_DEFAUT = 1200;
+
+	private final MovePilot pilote;
+
+  // angle du robot par rapport à sa direction de départ, entre -180 et 180
+	// (0 = face au but adverse, positif = vers la gauche)
+	private double cap = 0;
+
+	private boolean pincesOuvertes = false;
+	private int ouverturePinces = OUVERTURE_PINCES_DEFAUT; // degrés réellement parcourus à l'ouverture
+
+//Constructeur  
+public Moteur() {
+		Wheel roueGauche = WheeledChassis.modelWheel((RegulatedMotor) Motor.B, DIAMETRE_ROUE_CM).offset(-DEMI_ECARTEMENT_CM);
+		Wheel roueDroite = WheeledChassis.modelWheel((RegulatedMotor) Motor.A, DIAMETRE_ROUE_CM).offset(DEMI_ECARTEMENT_CM);
+		Chassis chassis = new WheeledChassis(new Wheel[] { roueGauche, roueDroite }, WheeledChassis.TYPE_DIFFERENTIAL);
+		pilote = new MovePilot(chassis);
+	}
+
+//renvoie l'objet MovPilot
+public MovePilot getPilot() {
+		return pilote;
+	}
+
+// ---------- Cap ----------
+
+	// ajoute angle au cap et le ramène entre -180 et 180
+	// (ainsi tourner(-getCap()) prend toujours le chemin le plus court)
+	private void ajouterAuCap(double angle) {
+		cap = (cap + angle) % 360;
+		if (cap > 180) {
+			cap -= 360;
+		} else if (cap <= -180) {
+			cap += 360;
+		}
+	}
