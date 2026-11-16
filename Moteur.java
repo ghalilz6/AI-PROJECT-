@@ -110,10 +110,12 @@ public class Moteur {
 	
 	// ---------- Pinces ----------
 
+	//Indique à la classe si les pinces sont ouvertes (sans les bouger). À utiliser au démarrage si les pinces ne sont pas dans l'état prévu.
 	public void setPincesOuvertes(boolean pincesOuvertes) {
 		this.pincesOuvertes = pincesOuvertes;
 	}
 
+	//Ouvre les pinces de degres (≈ 1200 pour les écarter) ; ne fait rien si déjà ouvertes.
 	public void ouvrirPinces(int degres) {
 		if (pincesOuvertes) {
 		return;
@@ -124,6 +126,7 @@ public class Moteur {
 		pincesOuvertes = true;
 	}
 
+	//Referme les pinces de la même quantité qu'à l'ouverture ; ne fait rien si déjà fermées.
 	public void fermerPinces() {
 		if (!pincesOuvertes) {
 		return;
