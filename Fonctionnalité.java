@@ -119,10 +119,9 @@ public class Fonctionnalite {
 		moteur.setVitesseLineaire(30);
 		moteur.avancerAsync(300);
 		int couleurDetectee = -1;
-		while (couleurDetectee != couleur && ! Button.ENTER.isDown()) {
-			System.out.print(couleurDetectee);
+		while (couleurDetectee != couleur && !Button.ENTER.isDown() && moteur.isMoving()) {
 			couleurDetectee = capteur.getCouleur().getColorID();
-			attendre(100);
+			attendre(20);
 		}
 		moteur.stop();
 		}
