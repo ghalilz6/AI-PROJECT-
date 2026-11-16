@@ -57,7 +57,7 @@ public class Fonctionnalite {
 		float[] echantillon = new float[ultrason.sampleSize()];
 		List<Float> distances = new ArrayList<Float>();
 
-		moteur.tournerSync(angle);
+		moteur.tournerAsync(angle);
 		while (moteur.isMoving()) {
 			distances.add(lireDistanceCm(ultrason, echantillon));
 			if (afficher) {
@@ -90,7 +90,7 @@ public class Fonctionnalite {
 		allerVersCouleur(COULEUR_LIGNE_BUT);
 		moteur.ouvrirPinces(OUVERTURE_PINCES_PALET);
 		moteur.avancer(-10);
-		moteur.fermerPinces(OUVERTURE_PINCES_PALET);
+		moteur.fermerPinces();
 	}
 	// avance de la distance donnée en évitant les obstacles à moins de 15cm
 	public void avancerAvecEvitement(double distanceCm){
@@ -101,7 +101,7 @@ public class Fonctionnalite {
 				moteur.avancer(30);
 				moteur.tourner(-moteur.getDirection());
 				moteur.stop();
-				moteur.avancerSync(distanceCm);
+				moteur.avancerAsync(distanceCm);
 			}
 		}
 	}
@@ -110,8 +110,8 @@ public class Fonctionnalite {
 		if(!capteur.getCouleur().isFloodlightOn()){
 			capteur.getCouleur().setFloodlight(true);
 		}
-		moteur.changerVitlin(30);
-		moteur.avancerSync(300);
+		moteur.setVitesseLineaire(30);
+		moteur.avancerAsync(300);
 		int couleurDetectee = -1;
 		while (couleurDetectee != couleur && ! Button.ENTER.isDown()) {
 			System.out.print(couleurDetectee);
@@ -126,13 +126,13 @@ public class Fonctionnalite {
 		float[] echantillon = new float[toucher.sampleSize()];
 
 		moteur.ouvrirPinces(OUVERTURE_PINCES_SAISIE);
-		moteur.changerVitLin(100);
+		moteur.setVitesseLineaire(100);
 		moteur.avancer(60);
 
 		while (!Button.ENTER.isDown()) {
 			toucher.fetchSample(echantillon, 0);
 			if (echantillon[0] == 1.00) {
-				moteur.fermerPinces(OUVERTURE_PINCES_SAISIE);
+				moteur.fermerPinces();
 				break;
 			}
 			attendre(1000);
@@ -141,7 +141,7 @@ public class Fonctionnalite {
 	//apres un but, se place perpendiculairement au mur adverse puis rejoint la ligne noir du milieu et se tourne vers les palets
 	public void rejoindreLigneNoire() {
 		reprendreCapInitial();
-		moteur.changerVitRot(36);
+		moteur.setVitesseRotation(36);
 		moteur.tourner(-20);
 
 		List<Float> distancesMur = balayerDistances(40, false);
@@ -151,9 +151,9 @@ public class Fonctionnalite {
 		}
 		moteur.tourner(-40 + indice * 40.000 / distancesMur.size() + 5);
 
-		moteur.changerVitRot(72);
+		moteur.setVitesseRotation(72);
 		moteur.tourner(90);
-		moteur.changerVitRot(36);
+		moteur.setVitesseRotation(36);
 		Delay.msDelay(500);
 
 		SampleProvider ultrason = capteur.getUltrason().getDistanceMode();
@@ -166,7 +166,7 @@ public class Fonctionnalite {
 	//se place face au palet le plus proche avance vers lui et l'attrape
 	public void viserEtAttraperPalet() {
 		moteur.tourner(-55);
-		moteur.changerVitRot(36);
+		moteur.setVitesseRotation(36);
 
 		List<Float> distances = balayerDistances(110, true);
 
@@ -178,19 +178,19 @@ public class Fonctionnalite {
 			distancePalet = distances.get(indice);
 		}
 
-		moteur.changerVitRot(90);
+		moteur.setVitesseRotation(90);
 		moteur.tourner(-110 + indice * 110.000 / distances.size() + 10);
 		moteur.ouvrirPinces(OUVERTURE_PINCES_PALET);
 		moteur.avancer(distancePalet + 25);
-		moteur.fermerPinces(OUVERTURE_PINCES_PALET);
+		moteur.fermerPinces();
 	}
 	
 	//gère le premier palet
 	public void marquerPremierPalet() {
-		moteur.avancerSync(60);
+		moteur.avancerAsync(60);
 		moteur.ouvrirPinces(OUVERTURE_PINCES_PALET);
 		moteur.stop();
-		moteur.fermerPinces(OUVERTURE_PINCES_PALET);
+		moteur.fermerPinces();
 
 		moteur.tourner(100);
 		moteur.avancer(20);
