@@ -89,9 +89,11 @@ public class Moteur {
 		pilote.stop();
 	}
 	// ---------- Vitesses ----------
+	//vitesse linéaire en cm/s
 	public void setVitesseLineaire(double cmParSeconde) {
 		pilote.setLinearSpeed(cmParSeconde);
 	}
+	//vitesse de rotation en degrés/s
 	public void setVitesseRotation(double degParSeconde) {
 		pilote.setAngularSpeed(degParSeconde);
 	}
