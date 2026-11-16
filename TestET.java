@@ -5,7 +5,7 @@ import lejos.utility.Delay;
 
 
 
-public class ET{
+public class TestET{
 
 	// test l'ouverture des pinces
 	public static void main(String[] args) {
