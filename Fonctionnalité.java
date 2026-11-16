@@ -23,7 +23,6 @@ public class Fonctionnalite {
 	//Attributs
 	final Moteur moteur;
 	final Capteur capteur;
-	boolean arretDemande = false;
 	int nbPalets = 0;
 
 	
