@@ -202,7 +202,7 @@ public class Fonctionnalite {
 	public void marquerPremierPalet() {
 		moteur.avancerAsync(60);
 		moteur.ouvrirPinces(OUVERTURE_PINCES_PALET);
-		moteur.stop();
+		while (moteur.isMoving()) attendre(10);
 		moteur.fermerPinces();
 
 		moteur.tourner(100);
@@ -234,6 +234,7 @@ public class Fonctionnalite {
 			viserEtAttraperPalet();
 			reprendreCapInitial();
 			deposerPaletSurLigneBut();
+			nbPalets++;
 		}
 	}
 	
@@ -244,7 +245,7 @@ public class Fonctionnalite {
 		moteur.tourner(90);
 		moteur.avancer(DISTANCE_MUR_CM);
 
-		while (true) {
+		while (!Button.ESCAPE.isDown()) {
 			moteur.avancer(-DISTANCE_MUR_CM * 2);
 			moteur.avancer(DISTANCE_MUR_CM * 2);
 		}
