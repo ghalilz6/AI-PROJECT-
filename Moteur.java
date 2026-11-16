@@ -14,27 +14,27 @@ public class Moteur {
 
 	private final MovePilot pilote;
 
-  // angle du robot par rapport à sa direction de départ, entre -180 et 180
+    // angle du robot par rapport à sa direction de départ, entre -180 et 180
 	// (0 = face au but adverse, positif = vers la gauche)
 	private double cap = 0;
 
 	private boolean pincesOuvertes = false;
 	private int ouverturePinces = OUVERTURE_PINCES_DEFAUT; // degrés réellement parcourus à l'ouverture
 
-//Constructeur  
-public Moteur() {
-		Wheel roueGauche = WheeledChassis.modelWheel((RegulatedMotor) Motor.B, DIAMETRE_ROUE_CM).offset(-DEMI_ECARTEMENT_CM);
-		Wheel roueDroite = WheeledChassis.modelWheel((RegulatedMotor) Motor.A, DIAMETRE_ROUE_CM).offset(DEMI_ECARTEMENT_CM);
-		Chassis chassis = new WheeledChassis(new Wheel[] { roueGauche, roueDroite }, WheeledChassis.TYPE_DIFFERENTIAL);
-		pilote = new MovePilot(chassis);
-	}
+	//Constructeur  
+	public Moteur() {
+			Wheel roueGauche = WheeledChassis.modelWheel((RegulatedMotor) Motor.B, DIAMETRE_ROUE_CM).offset(-DEMI_ECARTEMENT_CM);
+			Wheel roueDroite = WheeledChassis.modelWheel((RegulatedMotor) Motor.A, DIAMETRE_ROUE_CM).offset(DEMI_ECARTEMENT_CM);
+			Chassis chassis = new WheeledChassis(new Wheel[] { roueGauche, roueDroite }, WheeledChassis.TYPE_DIFFERENTIAL);
+			pilote = new MovePilot(chassis);
+		}
 
-//renvoie l'objet MovPilot
-public MovePilot getPilot() {
-		return pilote;
-	}
+	//renvoie l'objet MovPilot
+	public MovePilot getPilot() {
+			return pilote;
+		}
 
-// ---------- Cap ----------
+	// ---------- Cap ----------
 
 	// ajoute angle au cap et le ramène entre -180 et 180
 	// (ainsi tourner(-getCap()) prend toujours le chemin le plus court)
@@ -46,12 +46,47 @@ public MovePilot getPilot() {
 			cap += 360;
 		}
 	}
-//Renvoie le cap en degrés (0 si le robot regarde le but adverse).
-public double getCap() {
-return cap;
-}
-// Force le cap en degrés (utile pour recaler le robot, par exemple contre un mur).
-public void setCap(double cap) {
-this.cap = 0;
-ajouterAuCap(cap);
-}
+	
+	//Renvoie le cap en degrés (0 si le robot regarde le but adverse).
+	public double getCap() {
+	return cap;
+	}
+	// Force le cap en degrés (utile pour recaler le robot, par exemple contre un mur).
+	public void setCap(double cap) {
+	this.cap = 0;
+	ajouterAuCap(cap);
+	}
+
+	// Déplacements du robot 
+
+	public void tourner(double angle) {
+		pilote.rotate(angle);
+		ajouterAuCap(angle);
+	}
+
+	public void tournerAsync(double angle) {
+		pilote.rotate(angle, true);
+		ajouterAuCap(angle);
+	}
+
+	public void avancer(double distanceCm) {
+		pilote.travel(distanceCm);
+	}
+
+	public void avancerAsync(double distanceCm) {
+		pilote.travel(distanceCm, true);
+	}
+
+	public void avancerEnContinu() {
+		pilote.forward();
+	}
+
+	public boolean isMoving() {
+		return pilote.isMoving();
+	}
+
+	public void stop() {
+		pilote.stop();
+	}
+
+	
