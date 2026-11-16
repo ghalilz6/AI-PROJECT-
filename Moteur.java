@@ -46,3 +46,12 @@ public MovePilot getPilot() {
 			cap += 360;
 		}
 	}
+//Renvoie le cap en degrés (0 si le robot regarde le but adverse).
+public double getCap() {
+return cap;
+}
+// Force le cap en degrés (utile pour recaler le robot, par exemple contre un mur).
+public void setCap(double cap) {
+this.cap = 0;
+ajouterAuCap(cap);
+}
