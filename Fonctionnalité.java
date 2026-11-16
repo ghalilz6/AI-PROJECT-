@@ -1,12 +1,26 @@
 import java.util.ArrayList;
+import java.util.List;
 import lejos.hardware.Button;
 import lejos.robotics.SampleProvider;
 import lejos.utility.Delay;
+import lejos.robotics.Color;
 
 
  
 //La classe Fonctionnalite
 public class Fonctionnalite {
+	//Constantes
+	static final double VITESSE_LIN_DEFAUT = 30;   // cm/s
+	static final double VITESSE_ROT_DEFAUT = 90;   // degrés/s
+	static final int OUVERTURE_PINCES_PALET = 1200;
+	static final int OUVERTURE_PINCES_SAISIE = 1200;
+	static final int COULEUR_LIGNE_BUT = Color.WHITE;
+	static final float SEUIL_OBSTACLE_CM = 15;
+	static final double PORTEE_MAX_MUR_CM = 200;
+	static final double PORTEE_MIN_PALET_CM = 15;
+	static final double PORTEE_MAX_PALET_CM = 100;
+	static final double DISTANCE_MUR_CM = 100;     
+	//Attributs
 	final Moteur moteur;
 	final Capteur capteur;
 	boolean arretDemande = false;
@@ -76,7 +90,7 @@ public class Fonctionnalite {
 		allerVersCouleur(COULEUR_LIGNE_BUT);
 		moteur.ouvrirPinces(OUVERTURE_PINCES_PALET);
 		moteur.avancer(-10);
-		moteur.fermerPinces(OUVERTURE_PINCE_PALET);
+		moteur.fermerPinces(OUVERTURE_PINCES_PALET);
 	}
 	// avance de la distance donnée en évitant les obstacles à moins de 15cm
 	public void avancerAvecEvitement(double distanceCm){
