@@ -88,14 +88,34 @@ public class Moteur {
 	public void stop() {
 		pilote.stop();
 	}
+	
 	// ---------- Vitesses ----------
+	
 	//vitesse linéaire en cm/s
 	public void setVitesseLineaire(double cmParSeconde) {
 		pilote.setLinearSpeed(cmParSeconde);
 	}
+	
 	//vitesse de rotation en degrés/s
 	public void setVitesseRotation(double degParSeconde) {
 		pilote.setAngularSpeed(degParSeconde);
 	}
+	
+	// ---------- Pinces ----------
 
+	public void setPincesOuvertes(boolean pincesOuvertes) {
+		this.pincesOuvertes = pincesOuvertes;
+	}
+
+	public void ouvrirPinces(int degres) {
+		if (pincesOuvertes) {
+		return;
+		}
+		Motor.D.setSpeed(VITESSE_PINCES);
+		Motor.D.rotate(degres); // bloquant : rend la main quand le mouvement est fini
+		ouverturePinces = degres;
+		pincesOuvertes = true;
+	}
+
+	
 	
