@@ -66,6 +66,7 @@ public class Fonctionnalite {
 		}
 		return distances;
 	}
+	
 // cherche l'indice de la plus petite distance comprise dans l'intervalle min,max
 // retroune l'indice trouvé, si aucune distance est trouvée : retourne -1
 	private static int indiceDistanceMinimale(List<Float> distances, double min, double max){
@@ -80,10 +81,12 @@ public class Fonctionnalite {
 		}
 		return indice;
 	}
+	
 	// remet le robot dans sa direction de départ
 	private void reprendreCapInitial(){
 		moteur.tourner(-moteur.getCap());
 	}
+	
 	// va jusqu'a la ligne de but, lache le palet et recule en refermant les pinces
 	private void deposerPaletSurLigneBut(){
 		allerVersCouleur(COULEUR_LIGNE_BUT);
@@ -91,6 +94,7 @@ public class Fonctionnalite {
 		moteur.avancer(-10);
 		moteur.fermerPinces();
 	}
+	
 	// avance de la distance donnée en évitant les obstacles à moins de 15cm
 	public void avancerAvecEvitement(double distanceCm){
 	SampleProvider ultrason = capteur.getUltrason().getDistanceMode();
@@ -111,6 +115,7 @@ public class Fonctionnalite {
 		attendre(20);
 		}
 	}
+	
 	// avance jusqu'à détécter la couleur donnée( ou jusqu'à appui sur ENTER)
 	public void allerVersCouleur(int couleur){
 		if(!capteur.getCouleur().isFloodlightOn()){
@@ -125,6 +130,7 @@ public class Fonctionnalite {
 		}
 		moteur.stop();
 		}
+	
 	// avance pinces ouvertes et les referme lorsque le capteur touché est appuyé
 	public void saisirPalet(){
 		SampleProvider toucher = capteur.getTouche().getTouchMode();
@@ -132,17 +138,19 @@ public class Fonctionnalite {
 
 		moteur.ouvrirPinces(OUVERTURE_PINCES_SAISIE);
 		moteur.setVitesseLineaire(100);
-		moteur.avancer(60);
+		moteur.avancerAsync(60);
 
-		while (!Button.ENTER.isDown()) {
-			toucher.fetchSample(echantillon, 0);
-			if (echantillon[0] == 1.00) {
-				moteur.fermerPinces();
-				break;
+		while (!Button.ENTER.isDown() && moteur.isMoving()) {
+		toucher.fetchSample(echantillon, 0);
+		if (echantillon[0] == 1.00) {
+			moteur.stop();
+			break;
 			}
-			attendre(1000);
+			attendre(10);
 		}
+		moteur.fermerPinces();
 	}
+	
 	//apres un but, se place perpendiculairement au mur adverse puis rejoint la ligne noir du milieu et se tourne vers les palets
 	public void rejoindreLigneNoire() {
 		reprendreCapInitial();
@@ -204,7 +212,6 @@ public class Fonctionnalite {
 		deposerPaletSurLigneBut();
 		nbPalets++;
 	}
-
 	
 	// Marque les 3 premiers palets.
 	public void marquerTroisPremiersPalets() {
@@ -229,6 +236,7 @@ public class Fonctionnalite {
 			deposerPaletSurLigneBut();
 		}
 	}
+	
 	//apres 6 palets marqués, fait des allers-retours sur la ligne blanche de notre camp pour bloquer les autres robots qui arrivent avec un palais
 	public void jouerDefense() {
 		rejoindreLigneNoire();
