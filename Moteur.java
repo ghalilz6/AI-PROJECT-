@@ -57,34 +57,41 @@ public class Moteur {
 	ajouterAuCap(cap);
 	}
 
-	// Déplacements du robot 
-
+	// -------- Déplacements du robot --------
+	
+	// Tourne de angle degrés (positif = gauche) et attend la fin du mouvement.
 	public void tourner(double angle) {
 		pilote.rotate(angle);
 		ajouterAuCap(angle);
 	}
-
+	
+	// Lance la rotation sans attendre la fin (utiliser isMoving() pour suivre). 
 	public void tournerAsync(double angle) {
 		pilote.rotate(angle, true);
 		ajouterAuCap(angle);
 	}
 
+	// Avance de distanceCm (négatif = recule) et attend la fin du mouvement. 
 	public void avancer(double distanceCm) {
 		pilote.travel(distanceCm);
 	}
 
+	// Lance l'avance sans attendre la fin (utiliser isMoving() pour suivre). 
 	public void avancerAsync(double distanceCm) {
 		pilote.travel(distanceCm, true);
 	}
 
+	// Avance sans limite de distance, jusqu'à stop(). 
 	public void avancerEnContinu() {
 		pilote.forward();
 	}
 
+	// Renvoie true si le robot est en mouvement. 
 	public boolean isMoving() {
 		return pilote.isMoving();
 	}
 
+	// Arrête le robot. 
 	public void stop() {
 		pilote.stop();
 	}
