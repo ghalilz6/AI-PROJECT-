@@ -93,15 +93,22 @@ public class Fonctionnalite {
 	}
 	// avance de la distance donnée en évitant les obstacles à moins de 15cm
 	public void avancerAvecEvitement(double distanceCm){
-		while(moteur.isMoving()){
-			ultrason.fetchSample(echantillon,0);
-			if (echantillon[0]<SEUIL_OBSTACLE_CM){
-				moteur.tourner(45);
-				moteur.avancer(30);
-				moteur.tourner(-moteur.getDirection());
-				moteur.stop();
-				moteur.avancerAsync(distanceCm);
+	SampleProvider ultrason = capteur.getUltrason().getDistanceMode();
+	float[] echantillon = new float[ultrason.sampleSize()];
+	double restant = distanceCm;
+	moteur.avancerAsync(restant);
+	while (moteur.isMoving()) {
+		if (lireDistanceCm(ultrason, echantillon) < SEUIL_OBSTACLE_CM) {
+			restant -= moteur.getPilot().getMovement().getDistanceTraveled();
+			moteur.stop();
+			moteur.tourner(45);
+			moteur.avancer(30);
+			moteur.tourner(-45);
+			restant -= 30 * Math.cos(Math.toRadians(45));
+			if (restant <= 0) return;
+			moteur.avancerAsync(restant);
 			}
+		attendre(20);
 		}
 	}
 	// avance jusqu'à détécter la couleur donnée( ou jusqu'à appui sur ENTER)
@@ -136,7 +143,7 @@ public class Fonctionnalite {
 			}
 			attendre(1000);
 		}
-}
+	}
 	//apres un but, se place perpendiculairement au mur adverse puis rejoint la ligne noir du milieu et se tourne vers les palets
 	public void rejoindreLigneNoire() {
 		reprendreCapInitial();
