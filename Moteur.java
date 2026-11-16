@@ -117,5 +117,15 @@ public class Moteur {
 		pincesOuvertes = true;
 	}
 
+	public void fermerPinces() {
+		if (!pincesOuvertes) {
+		return;
+		}
+		Motor.D.setSpeed(VITESSE_PINCES);
+		Motor.D.rotate(-ouverturePinces);
+		pincesOuvertes = false;
+	}
+}
+
 	
 	
